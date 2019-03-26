@@ -20,7 +20,7 @@ class RotatedRect:
         return self.box_points
 
 
-class Rotater:
+class Rotator:
     def __init__(self, annotation_type='points', rotation_angle=(-15,15)):
         self.image = np.array((0,0))
         self.points = []
@@ -249,7 +249,7 @@ class Rotater:
 
 if __name__ == '__main__':
     # Read image to be rotated
-    image = cv2.imread('D:/test.jpg')
+    image = cv2.imread('./test.jpg')
     image_ = image.copy()
     # Annotations formatted as points
     points = [(113, 127), (156, 127), (156, 170), (113, 170), (179, 127), (224, 127), (224, 171), (179, 171)]
@@ -300,18 +300,18 @@ if __name__ == '__main__':
     cv2.imshow('initial_image', image_)
 
     # Define the rotater and rotate the image
-    rotater1 = Rotater('points', 15)
-    image_rotated, new_points = rotater1.rotate(image.copy(), points)
-    rotater2 = Rotater('rects', 15)
-    _, new_rects = rotater2.rotate(image.copy(), rects)
-    rotater3 = Rotater('np_rotated_rects', 15)
-    _, new_np_rotated_rects = rotater3.rotate(image.copy(), np_rotated_rects)
-    rotater4 = Rotater('cv_rotated_rects', 15)
-    _, new_cv_rotated_rects = rotater4.rotate(image.copy(), cv_rotated_rects)
-    rotater5 = Rotater('quadrilaterals', 15)
-    _, new_quadrilaterals = rotater5.rotate(image.copy(), quadrilaterals)
-    rotater6 = Rotater('polygons', 15)
-    _, new_polygons = rotater6.rotate(image.copy(), polygons)
+    rotator1 = Rotator('points', 15)
+    image_rotated, new_points = rotator1.rotate(image.copy(), points)
+    rotator2 = Rotator('rects', 15)
+    _, new_rects = rotator2.rotate(image.copy(), rects)
+    rotator3 = Rotator('np_rotated_rects', 15)
+    _, new_np_rotated_rects = rotator3.rotate(image.copy(), np_rotated_rects)
+    rotator4 = Rotator('cv_rotated_rects', 15)
+    _, new_cv_rotated_rects = rotator4.rotate(image.copy(), cv_rotated_rects)
+    rotator5 = Rotator('quadrilaterals', 15)
+    _, new_quadrilaterals = rotator5.rotate(image.copy(), quadrilaterals)
+    rotator6 = Rotator('polygons', 15)
+    _, new_polygons = rotator6.rotate(image.copy(), polygons)
 
     # Draw rotated annotations of points
     for new_point in new_points:
