@@ -11,11 +11,6 @@ Numpy1.15
 
 Details
 -------
-This method will rotate the input images and extend the edge to ensure all the pixels of the initial image will not be abandoned.
-That means the procedure will look like this:![1](https://github.com/Alpaca07/Rotator_for_angle/blob/master/examples/sketch1.png)
-
-We are not doing this work:![2](https://github.com/Alpaca07/Rotator_for_angle/blob/master/examples/sketch2.png)
-
 You need to build a rotator for one type of annotation and a rotation angle or a range of rotation angles.The type should be choosed from the list:
 
 ‘points’ is a list of some point annotations on the image formatted as tuples (x,y). It can be empty while the output will be None. An example of the parameter is [(113, 127), (156, 127), (156, 170)]
@@ -35,6 +30,10 @@ Besides, a parameter that represents the angle should be provided. It can be an 
 -When it is an integer, the inputs will be rotated rotation_angle degrees
 
 -When it is a tuple with length 2, the rotation angle will be generated randomly with a value between [rotation_angle[0], rotation_angle[1]]
+
+And 'expand_edge' is a boolean variable, when its value is True, the image will be expanded before rotated to ensure that no pixel of the image will be abandoned. The process will look like this:![1](https://github.com/Alpaca07/Rotator_for_angle/blob/master/examples/sketch1.png)
+
+If it is set to False, the rotation will not change the size of the image. The process will look like this:![2](https://github.com/Alpaca07/Rotator_for_angle/blob/master/examples/sketch2.png)
 
 Then a rotator has been created. You can invoke the method rotate(image, annotation) to rotate the image and its annotation. The method will return two objects in which the first is the rotated image and the second is the annotations after rotation.
 
