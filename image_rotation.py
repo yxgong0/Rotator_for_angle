@@ -21,7 +21,7 @@ class RotatedRect:
 
 
 class Rotator:
-    def __init__(self, annotation_type='points', rotation_angle=(-15,15)):
+    def __init__(self, annotation_type='points', rotation_angle=(-15,15), expand_edge=True):
         self.image = np.array((0,0))
         self.points = []
         self.rects = []
@@ -31,6 +31,7 @@ class Rotator:
         self.polygons = []
         self.annotation_type = annotation_type
         self.rotation_angle = rotation_angle
+        self.expand_edge = expand_edge
 
         self.angle = 0
         self.radian = 0
@@ -130,8 +131,12 @@ class Rotator:
 
         # Calculate the new width and height after rotation
         (h, w) = self.image.shape[:2]
-        new_w = math.ceil(abs(h * math.sin(radian)) + abs(w * math.cos(radian)))
-        new_h = math.ceil(abs(w * math.sin(radian)) + abs(h * math.cos(radian)))
+        if self.expand_edge:
+            new_w = math.ceil(abs(h * math.sin(radian)) + abs(w * math.cos(radian)))
+            new_h = math.ceil(abs(w * math.sin(radian)) + abs(h * math.cos(radian)))
+        else:
+            new_w = w
+            new_h = h
         height_increment = int(math.ceil(new_h - h))
         width_increment = int(math.ceil(new_w - w))
         self.new_w = new_w
