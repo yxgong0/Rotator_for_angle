@@ -11,7 +11,8 @@ Numpy1.15
 
 Details
 -------
-At first, it is necessary to import the Rotater by: from image_rotation import Rotater
+At first, it is necessary to import the Rotator by: from image_rotation import Rotator
+
 Then you need to build a rotator for one type of annotation and a rotation angle or a range of rotation angles. The type should be choosed from the list:
 
 ‘points’ is a list of some point annotations on the image formatted as tuples (x,y). It can be empty while the output will be None. An example of the parameter is [(113, 127), (156, 127), (156, 170)]
