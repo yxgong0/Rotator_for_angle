@@ -57,7 +57,7 @@ class Rotator:
         elif self.annotation_type == 'rects':
             assert isinstance(self.rects, list) or isinstance(self.rects, tuple)
             if self.rects.__len__() > 0:
-                for rect in rects:
+                for rect in self.rects:
                     assert isinstance(rect, tuple) and rect.__len__() == 4
         elif self.annotation_type == 'np_rotated_rects':
             assert isinstance(self.np_rotated_rects, np.ndarray) and self.np_rotated_rects.shape.__len__() == 2
@@ -81,7 +81,7 @@ class Rotator:
         elif self.annotation_type == 'polygons':
             assert isinstance(self.polygons, list) or isinstance(self.polygons, tuple)
             if self.polygons.__len__() != 0:
-                for polygon in polygons:
+                for polygon in self.polygons:
                     assert isinstance(polygon, tuple) or isinstance(polygon, list)
                     for pt in polygon:
                         assert isinstance(pt, tuple) and pt.__len__() == 2
@@ -150,14 +150,14 @@ class Rotator:
             = self.image
 
         # Rotate the image
-        M = cv2.getRotationMatrix2D((new_h / 2., new_w / 2.), angle, 1.0)
+        M = cv2.getRotationMatrix2D((new_w / 2., new_h / 2.), angle, 1.0)
         image_rotated = cv2.warpAffine(image_expanded, M, (int(new_w), int(new_h)))
         self.results[0] = image_rotated
 
         if self.annotation_type == 'points':
             # Calculate the new coordinates of the input points
             new_points = []
-            for point in points:
+            for point in self.points:
                 new_point = self.rotate_point(point)
                 new_points.append(new_point)
             self.results[1] = new_points
@@ -165,7 +165,7 @@ class Rotator:
         if self.annotation_type == 'rects':
             # Produce the rotated rect from rect
             new_rects = []
-            for rect in rects:
+            for rect in self.rects:
                 center = (rect[0] + rect[2] / 2., rect[1] + rect[3] / 2.)
                 new_center = self.rotate_point(center)
                 tl_point = (rect[0], rect[1])
@@ -241,7 +241,7 @@ class Rotator:
         if self.annotation_type == 'polygons':
             # Produce the rotated polygons from input ones
             new_polygons = []
-            for polygon in polygons:
+            for polygon in self.polygons:
                 new_polygon = []
                 for pt in polygon:
                     new_pt = self.rotate_point(pt)
@@ -354,5 +354,3 @@ if __name__ == '__main__':
     # Show the results
     cv2.imshow('rotated_image', image_rotated)
     cv2.waitKey(0)
-
-
